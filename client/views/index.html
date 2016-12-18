@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SocketIO-Testing2</title>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+
+	<style>
+		.wCustom{
+			padding-left: 5%;
+			padding-right: 5%;
+		}
+		/*
+		.imgWrapper { 
+			float: center; 
+			clear: left; 
+			display: table; 
+			table-layout: fixed; 
+		}
+    	img.img-responsive { 
+    		display: table-cell; 
+    		max-width: 75%; 
+    		max-height: 75%; 
+    	}
+    	*/
+	</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+	<script src="/js/socket.io.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+
+	var tHeight = $(this).height() / 2;
+	var tWidth = $(this).width() / 3;
+
+	var sTV = document.createElement('audio');
+	var sAudioBook = document.createElement('audio');
+	var sMusic = document.createElement('audio');
+	var sWater = document.createElement('audio');
+	var sBathroom = document.createElement('audio');
+	var sFood = document.createElement('audio');
+
+	sTV.setAttribute( 'src' , "/sounds/TV.mp3" );
+	sAudioBook.setAttribute( 'src' , "/sounds/audiobook.mp3" );
+	sMusic.setAttribute( 'src' , "/sounds/music.mp3" );
+	sWater.setAttribute( 'src' , "/sounds/water.mp3" );
+	sBathroom.setAttribute( 'src' , "/sounds/bathroom.mp3" );
+	sFood.setAttribute( 'src' , "/sounds/food.mp3" );
+		
+	window.onload = function() {
+
+		var messages = [];
+		var socket = io.connect('http://'+location.host);
+		
+		socket.on('message', function (data) {
+			if(data.message) {
+				console.log(data);
+
+				// Reply Back to Server
+				socket.emit( 'replyBack' , "Reply from socketIO-client" );
+
+			} else {
+				console.log("There is a problem:", data);
+			}
+		});		
+
+		$('#a1').height( tHeight );
+    	$('#b1').height( tHeight );
+    	$('#c1').height( tHeight );
+
+    	$('#a2').height( tHeight );
+    	$('#b2').height( tHeight );
+    	$('#c2').height( tHeight );
+		
+    	var sC = $("#b1").width();
+
+    	$('#wI1').height( tHeight ).width( sC );
+    	$('#wI2').height( tHeight ).width( sC );
+    	$('#wI3').height( tHeight ).width( sC );
+    	$('#wI4').height( tHeight ).width( sC );
+    	$('#wI5').height( tHeight ).width( sC );
+    	$('#wI6').height( tHeight ).width( sC );
+
+	};
+
+	$(window).on('resize', function(){
+    	
+    	var win = $(this); //this = window
+    	tHeight = win.height() / 2;
+    	hOffset = tHeight / 100;
+    	tHeight = tHeight - ( hOffset * 3);
+
+    	tWidth = win.width() / 3;
+    	wOffset = tWidth / 100;
+    	tWidth =  tWidth - ( wOffset * 3 );
+
+
+    	$('#a1').height( tHeight );
+    	$('#b1').height( tHeight );
+    	$('#c1').height( tHeight );
+
+    	$('#a2').height( tHeight );
+    	$('#b2').height( tHeight );
+    	$('#c2').height( tHeight );
+
+    	var sC = $("#b1").width();
+
+    	$('#wI1').height( tHeight ).width( sC );
+    	$('#wI2').height( tHeight ).width( sC );
+    	$('#wI3').height( tHeight ).width( sC );
+    	$('#wI4').height( tHeight ).width( sC );
+    	$('#wI5').height( tHeight ).width( sC );
+    	$('#wI6').height( tHeight ).width( sC );
+
+	});
+
+	$(document).ready( function() {
+
+		$("#wI1").click( function() {
+			sWater.play();
+		});
+
+		$("#wI2").click( function() {
+			sBathroom.play();
+		});
+
+		$("#wI3").click( function() {
+			sFood.play();
+		});
+
+		$("#wI4").click( function() {
+			sAudioBook.play();
+		});
+
+		$("#wI5").click( function() {
+			sMusic.play();
+		});
+
+		$("#wI6").click( function() {
+			sTV.play();
+		});						
+
+	});
+
+
+</script>
+
+
+<div class="container-fluid">
+
+	<div class="row wCustom">
+		
+		<div class="col-xs-4 col-sm-4" id="a1" style="background:red; opacity: 0.6">
+			<img class=" center-block" id="wI1" src="images/water.png" />
+		</div>
+    	<div class="col-xs-4 col-sm-4" id="b1" style="background:blue; opacity: 0.6">
+     		<img class=" center-block" id="wI2" src="images/toilet.png" /> 
+    	</div>
+    	<div class="col-xs-4 col-sm-4" id="c1" style="background:green; opacity: 0.6">
+    		<img class=" center-block" id="wI3" src="images/food.png" />
+    	</div>
+    	
+	</div>
+
+	<div class="row wCustom" >
+		<div class="col-xs-4 col-sm-4" id="a2" style="background:yellow; opacity: 0.6"> 
+			<img class=" center-block" id="wI4" src="images/audiobook.png" />
+		</div>
+    	<div class="col-xs-4 col-sm-4" id="b2" style="background:purple; opacity: 0.6"> 
+    		<img class=" center-block" id="wI5" src="images/music.png" />
+    	</div>
+    	<div class="col-xs-4 col-sm-4" id="c2" style="background:cyan; opacity: 0.6"> 
+    	<img class=" center-block" id="wI6" src="images/tv.png" />
+    	</div>
+	</div>
+
+</div>
+
+</body>
+</html>
+
