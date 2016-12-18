@@ -45,6 +45,8 @@
 	var tHeight = $(this).height() / 2;
 	var tWidth = $(this).width() / 3;
 
+	var nowPlaying = false;
+
 	var sTV = document.createElement('audio');
 	var sAudioBook = document.createElement('audio');
 	var sMusic = document.createElement('audio');
@@ -53,11 +55,24 @@
 	var sFood = document.createElement('audio');
 
 	sTV.setAttribute( 'src' , "/sounds/TV.mp3" );
+	sTV.setAttribute( 'preload' , "auto" );
 	sAudioBook.setAttribute( 'src' , "/sounds/audiobook.mp3" );
+	sAudioBook.setAttribute( 'preload' , "auto" );
 	sMusic.setAttribute( 'src' , "/sounds/music.mp3" );
+	sMusic.setAttribute( 'preload' , "auto" );
 	sWater.setAttribute( 'src' , "/sounds/water.mp3" );
+	sWater.setAttribute( 'preload' , "auto" );
 	sBathroom.setAttribute( 'src' , "/sounds/bathroom.mp3" );
+	sBathroom.setAttribute( 'preload' , "auto" );
 	sFood.setAttribute( 'src' , "/sounds/food.mp3" );
+	sFood.setAttribute( 'preload' , "auto" );
+
+	sTV.addEventListener( "ended" , function() { nowPlaying = false; });
+	sAudioBook.addEventListener( "ended" , function() { nowPlaying = false; });
+	sMusic.addEventListener( "ended" , function() { nowPlaying = false; });
+	sWater.addEventListener( "ended" , function() { nowPlaying = false; });
+	sBathroom.addEventListener( "ended" , function() { nowPlaying = false; });
+	sFood.addEventListener( "ended" , function() { nowPlaying = false; });
 		
 	window.onload = function() {
 
@@ -129,27 +144,45 @@
 	$(document).ready( function() {
 
 		$("#wI1").click( function() {
-			sWater.play();
+			if ( nowPlaying == false ) {
+				nowPlaying = true;
+				sWater.play();	
+			}
 		});
 
 		$("#wI2").click( function() {
-			sBathroom.play();
+			if ( nowPlaying == false ) {
+				nowPlaying = true;
+				sBathroom.play();	
+			}
 		});
 
 		$("#wI3").click( function() {
-			sFood.play();
+			if ( nowPlaying == false ) {
+				nowPlaying = true;
+				sFood.play();	
+			}
 		});
 
 		$("#wI4").click( function() {
-			sAudioBook.play();
+			if ( nowPlaying == false ) {
+				nowPlaying = true;
+				sAudioBook.play();	
+			}
 		});
 
 		$("#wI5").click( function() {
-			sMusic.play();
+			if ( nowPlaying == false ) {
+				nowPlaying = true;
+				sMusic.play();	
+			}
 		});
 
 		$("#wI6").click( function() {
-			sTV.play();
+			if ( nowPlaying == false ) {
+				nowPlaying = true;
+				sTV.play();	
+			}
 		});						
 
 	});
